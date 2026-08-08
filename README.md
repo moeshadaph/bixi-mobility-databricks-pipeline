@@ -6,7 +6,7 @@ Le dataset BIXI Montréal a été choisi pour sa simplicité : open data accessi
 
 Architecture
 
-![Architecture du pipeline](screenshots/architecture.png)
+![Architecture du pipeline](architecture.png)
 
 
 N.B: L'ensemble du pipeline (Bronze → Silver → Gold) est orchestré via un Databricks Workflow planifié quotidiennement.
