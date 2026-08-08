@@ -1,0 +1,376 @@
+{
+  "datasets": [
+    {
+      "name": "c60960b1",
+      "displayName": "daily_trips_dataset",
+      "queryLines": [
+        "SELECT trip_date, nb_trips, avg_duration_sec\r\n",
+        "FROM bixi_mobility.gold.daily_trips\r\n",
+        "ORDER BY trip_date"
+      ]
+    },
+    {
+      "name": "3bd14960",
+      "displayName": "station_popularity_dataset",
+      "queryLines": [
+        "SELECT station_name, borough, total_trips\r\n",
+        "FROM bixi_mobility.gold.station_popularity\r\n",
+        "ORDER BY total_trips DESC\r\n",
+        "LIMIT 15"
+      ]
+    },
+    {
+      "name": "16f746bc",
+      "displayName": "seasonality_dataset",
+      "queryLines": [
+        "SELECT day_of_week, hour_of_day, nb_trips\r\n",
+        "FROM bixi_mobility.gold.seasonality"
+      ]
+    }
+  ],
+  "relationshipGraphs": [
+    {
+      "sources": [
+        {
+          "name": "daily_trips_dataset",
+          "datasetName": "c60960b1"
+        },
+        {
+          "name": "station_popularity_dataset",
+          "datasetName": "3bd14960"
+        },
+        {
+          "name": "seasonality_dataset",
+          "datasetName": "16f746bc"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "acb48017",
+      "displayName": "Dashboards",
+      "layout": [
+        {
+          "widget": {
+            "name": "les-stations-les-pl",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "monthly(daily_trips_dataset__trip_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `daily_trips_dataset`.`trip_date`)"
+                    },
+                    {
+                      "name": "sum(daily_trips_dataset__nb_trips)",
+                      "expression": "SUM(`daily_trips_dataset`.`nb_trips`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Evolution du trafic dans le temps"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(daily_trips_dataset__trip_date)",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(daily_trips_dataset__nb_trips)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "les1",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "sum(station_popularity_dataset__total_trips)",
+                      "expression": "SUM(`station_popularity_dataset`.`total_trips`)"
+                    },
+                    {
+                      "name": "station_popularity_dataset__station_name",
+                      "expression": "`station_popularity_dataset`.`station_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "showTitle": true,
+                "title": "Les stations les plus populaires"
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(station_popularity_dataset__total_trips)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "station_popularity_dataset__station_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 0,
+            "width": 6,
+            "height": 8
+          }
+        },
+        {
+          "widget": {
+            "name": "head",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "fields": [
+                    {
+                      "name": "sum(seasonality_dataset__nb_trips)",
+                      "expression": "SUM(`seasonality_dataset`.`nb_trips`)"
+                    },
+                    {
+                      "name": "seasonality_dataset__day_of_week",
+                      "expression": "`seasonality_dataset`.`day_of_week`"
+                    },
+                    {
+                      "name": "seasonality_dataset__hour_of_day",
+                      "expression": "`seasonality_dataset`.`hour_of_day`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Heatmap heure × jour de la semaine"
+              },
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "seasonality_dataset__day_of_week",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "seasonality_dataset__hour_of_day",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "sum(seasonality_dataset__nb_trips)",
+                  "scale": {
+                    "type": "quantitative",
+                    "colorRamp": {
+                      "mode": "single-hue",
+                      "baseColor": {
+                        "themeColorType": "visualizationColors",
+                        "position": 1
+                      }
+                    }
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 1,
+            "y": 8,
+            "width": 9,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
