@@ -6,7 +6,7 @@ Le dataset BIXI Montréal a été choisi pour sa simplicité : open data accessi
 
 Architecture
 
-Bixi Open DataCSV 2024  ------>  Bronze Auto Loader  ------>  Silver PySpark clean ------> Gold Agrégats métier ------> Databricks SQL Dashboard
+[Architecture du pipeline](screenshots/architecture.png)
 
 
 N.B: L'ensemble du pipeline (Bronze → Silver → Gold) est orchestré via un Databricks Workflow planifié quotidiennement.
