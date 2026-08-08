@@ -23,6 +23,7 @@ Stack technique:
 - Langage; Python, SQL
 
 2- Ce que fait chaque couche : 
+
 -- Bronze — bronze.trips_raw Ingestion incrémentale des fichiers CSV bruts via Auto Loader, avec détection automatique du schéma et traçabilité (horodatage d'ingestion, fichier source via _metadata.file_path).
 
 -- Silver — silver.trips_clean Nettoyage et mise en qualité : typage des colonnes temporelles (conversion epoch → timestamp, fuseau horaire America/Montreal), filtrage des trajets aberrants (durée < 1 min ou > 24h), suppression des lignes sans station valide, renommage en snake_case.
